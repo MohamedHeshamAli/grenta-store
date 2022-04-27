@@ -14,6 +14,7 @@ import 'widgets/product details/size card.dart';
 
 class TestUI extends StatelessWidget {
   Product product = Product(
+    quant: 3,
     id: "id",
     rebate: 30,
     name: "تيشيرت",
@@ -23,6 +24,7 @@ class TestUI extends StatelessWidget {
   ProductDetails productDetails = ProductDetails(
     product: Product(
       id: "id",
+      quant: 3,
       rebate: 30,
       name: "تيشيرت",
       price: 60,

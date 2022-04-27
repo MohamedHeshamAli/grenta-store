@@ -8,15 +8,29 @@ class OrderedProduct {
     required this.product,
     required this.selectedSize,
   });
-  void increaseCount() {
-    _count++;
+  bool increaseCount() {
+    if (product.quant > _count) {
+      _count++;
+      product.quant--;
+      return true;
+    } else {
+      return false;
+    }
   }
 
-  void decreaseCount() {
+  bool decreaseCount() {
     if (_count > 1) {
       _count--;
+      product.quant++;
+      return true;
+    } else {
+      return false;
     }
-    int getCount() => _count;
+  }
+
+  void resetCount() {
+    product.quant += _count;
+    _count = 0;
   }
 
   int getCount() => _count;

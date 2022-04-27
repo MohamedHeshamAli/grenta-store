@@ -5,8 +5,10 @@ class Product {
   late final double priceAfterRebate;
   final double rebate;
   final String mainImageURL;
+  int quant;
 
   Product({
+    required this.quant,
     required this.id,
     required this.name,
     required this.price,

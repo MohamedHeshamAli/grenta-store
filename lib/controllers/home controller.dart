@@ -11,6 +11,7 @@ class HomeController extends GetxController {
   RxBool loadingMoreProducts = false.obs;
   Rx<Product> selectedProduct = Product(
     id: "id",
+    quant: 3,
     name: "name",
     price: 0,
     mainImageURL: "mainImageURL",
@@ -30,6 +31,7 @@ class HomeController extends GetxController {
   RxList<Product> productList = [
     Product(
       id: "id",
+      quant: 3,
       name: "name",
       price: 0,
       mainImageURL: "mainImageURL",

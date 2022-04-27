@@ -9,6 +9,7 @@ class CarController extends GetxController {
   ProductDetails currentProductDetails = ProductDetails(
     product: Product(
       id: "id",
+      quant: 3,
       rebate: 30,
       name: "تيشيرت",
       price: 60,
@@ -31,7 +32,8 @@ class CarController extends GetxController {
   RxString selectedSize = "".obs;
   RxInt carItemsCount = 0.obs;
   Rx<OrderedProduct> currentOrderedProduct = OrderedProduct(
-          product: Product(price: 0, id: "0", mainImageURL: "", name: ""),
+          product:
+              Product(price: 0, quant: 3, id: "0", mainImageURL: "", name: ""),
           selectedSize: "")
       .obs;
   void setCurrentOrderedProduct(OrderedProduct orderedProduct) {
@@ -46,29 +48,56 @@ class CarController extends GetxController {
   }
 
   void addProduct() {
-    carItemsCount.value++;
     for (OrderedProduct item in carItemsList) {
       if (item.product.id == currentProduct.id &&
           item.selectedSize == selectedSize.value) {
-        item.increaseCount();
-        //toDo decrease the quan of order quan
-
+        bool isAdded = item.increaseCount();
+        if (isAdded) {
+          carItemsCount.value++;
+        }
+        update();
         return;
       }
     }
-    carItemsList.add(OrderedProduct(
-        product: currentProduct, selectedSize: selectedSize.value));
+    OrderedProduct newOrder = OrderedProduct(
+        product: currentProduct, selectedSize: selectedSize.value);
+    newOrder.increaseCount();
+    carItemsList.add(newOrder);
+    carItemsCount.value++;
+    update();
+  }
+
+  void incrementProduct({required OrderedProduct orderedProduct}) {
+    for (OrderedProduct item in carItemsList) {
+      if (item.product.id == orderedProduct.product.id &&
+          item.selectedSize == orderedProduct.selectedSize) {
+        bool isAdded = item.increaseCount();
+        if (isAdded) {
+          carItemsCount.value++;
+        }
+        update();
+        return;
+      }
+    }
+    OrderedProduct newOrder = OrderedProduct(
+        product: currentProduct, selectedSize: selectedSize.value);
+    newOrder.increaseCount();
+    carItemsList.add(newOrder);
+    carItemsCount.value++;
+    update();
     //toDo decrease the quan of order quan
   }
 
-  void decrementProduct() {
-    carItemsCount.value--;
+  void decrementProduct({required OrderedProduct orderedProduct}) {
     for (OrderedProduct item in carItemsList) {
-      if (item.product.id == currentProduct.id &&
-          item.selectedSize == selectedSize.value) {
-        item.decreaseCount();
-        //toDo increase the quan of order quan
-
+      if (item.product.id == orderedProduct.product.id &&
+          item.selectedSize == orderedProduct.selectedSize) {
+        bool isDecreased = item.decreaseCount();
+        if (isDecreased) {
+          carItemsCount.value--;
+        }
+        update();
+        return;
       }
     }
   }
@@ -86,6 +115,7 @@ class CarController extends GetxController {
     currentProductDetails = ProductDetails(
       product: Product(
         id: "id",
+        quant: 3,
         rebate: 30,
         name: "تيشيرت",
         price: 60,

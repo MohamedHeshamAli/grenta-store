@@ -11,22 +11,26 @@ class CarScreen extends StatelessWidget {
   CarController _controller = Get.put(CarController());
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          "عربة التسوق",
-        ),
-      ),
-      body: GetX<CarController>(
-        builder: (_) {
-          return ListView.builder(
+    return GetBuilder<CarController>(
+      builder: (_) {
+        return Scaffold(
+          bottomSheet: Card(
+            color: appBarColor,
+            child: Text(_controller.carItemsCount.value.toString()),
+          ),
+          appBar: AppBar(
+            title: const Text(
+              "عربة التسوق",
+            ),
+          ),
+          body: ListView.builder(
             itemCount: _controller.carItemsList.length,
             itemBuilder: (ctx, n) {
-              return Text("_controller.orderedProductList");
+              return CarOrderCard(orderedProduct: _controller.carItemsList[n]);
             },
-          );
-        },
-      ),
+          ),
+        );
+      },
     );
   }
 }

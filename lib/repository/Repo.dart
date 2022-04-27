@@ -28,6 +28,7 @@ class RemoteRepo {
         Product product = Product(
           id: "$i",
           rebate: 30,
+          quant: 5,
           name: "تيشيرت",
           price: 60,
           mainImageURL:
@@ -39,6 +40,7 @@ class RemoteRepo {
       for (int i = 10; i < 20; i++) {
         Product product = Product(
           id: "$i",
+          quant: 3,
           name: "سوي تيشيرت",
           price: 60,
           mainImageURL:
@@ -55,6 +57,7 @@ class RemoteRepo {
     for (int i = 0; i < 10; i++) {
       Product product = Product(
         id: "id",
+        quant: 3,
         rebate: 30,
         name: "تيشيرت",
         price: 60,
