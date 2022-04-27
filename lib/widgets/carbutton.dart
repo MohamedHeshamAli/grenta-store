@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:grenta_store/common.dart';
 import 'package:grenta_store/controllers/car%20controller.dart';
+import 'package:grenta_store/views/car/car%20screen.dart';
 
 class CarBtn extends StatelessWidget {
   final CarController _controller = Get.put(CarController());
@@ -9,7 +10,7 @@ class CarBtn extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        //toDo go to car screen
+        Get.to(CarScreen());
       },
       child: GetX<CarController>(builder: (_) {
         return Stack(

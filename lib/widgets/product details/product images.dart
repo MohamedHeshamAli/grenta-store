@@ -1,6 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:grenta_store/network%20image%20widget.dart';
+import 'package:grenta_store/widgets/network%20image%20widget.dart';
 
 class ProductImagesSlider extends StatelessWidget {
   final List imagesURLList;

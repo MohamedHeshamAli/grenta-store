@@ -12,5 +12,12 @@ class OrderedProduct {
     _count++;
   }
 
+  void decreaseCount() {
+    if (_count > 1) {
+      _count--;
+    }
+    int getCount() => _count;
+  }
+
   int getCount() => _count;
 }

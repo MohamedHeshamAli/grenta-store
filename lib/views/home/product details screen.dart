@@ -3,8 +3,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:grenta_store/common.dart';
 import 'package:grenta_store/controllers/car%20controller.dart';
-import 'package:grenta_store/models/product%20details.dart';
-import 'package:grenta_store/models/product.dart';
 import 'package:grenta_store/widgets/CircularIndicator.dart';
 import 'package:grenta_store/widgets/carbutton.dart';
 import 'package:grenta_store/widgets/product%20details/product%20images.dart';
@@ -22,6 +20,24 @@ class ProductDetailsScreen extends StatelessWidget {
       return _controller.loading.value
           ? const CircularIndicator()
           : Scaffold(
+              floatingActionButtonLocation:
+                  FloatingActionButtonLocation.centerFloat,
+              floatingActionButton: Container(
+                margin: const EdgeInsets.symmetric(horizontal: 20),
+                width: double.infinity,
+                child: FloatingActionButton.extended(
+                  onPressed: () {
+                    _controller.addProduct();
+                  },
+                  backgroundColor: appBarColor,
+                  label: const Text(
+                    "اضافة الي عربة التسوق",
+                    textAlign: TextAlign.center,
+                    style: textTitleStyle,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
+              ),
               appBar: AppBar(
                 actions: [
                   Center(child: CarBtn()),
@@ -31,23 +47,6 @@ class ProductDetailsScreen extends StatelessWidget {
                 ],
                 centerTitle: true,
                 title: const Text("تفاصيل المنتج", style: textTitleStyle),
-              ),
-              bottomSheet: GestureDetector(
-                onTap: () {
-                  _controller.addProduct();
-                },
-                child: Container(
-                  height: 55,
-                  width: double.infinity,
-                  color: appBarColor,
-                  child: const Center(
-                    child: Text(
-                      "اضافة الي عربة التسوق",
-                      textAlign: TextAlign.center,
-                      style: textTitleStyle,
-                    ),
-                  ),
-                ),
               ),
               body: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,

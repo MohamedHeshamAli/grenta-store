@@ -17,6 +17,8 @@ final appTheme = ThemeData(
   scaffoldBackgroundColor: backgroundColor,
   bottomAppBarColor: appBarColor,
   appBarTheme: const AppBarTheme(
+    centerTitle: true,
+    titleTextStyle: textTitleStyle,
     color: appBarColor,
   ),
   primaryColor: primaryCollor,
@@ -37,4 +39,4 @@ const textTitleStyle = TextStyle(
   color: Colors.white,
 );
 const textNameStyle =
-    TextStyle(fontSize: 20, color: Colors.black87, fontWeight: FontWeight.bold);
+    TextStyle(fontSize: 20, color: primaryCollor, fontWeight: FontWeight.bold);

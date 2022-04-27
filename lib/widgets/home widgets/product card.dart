@@ -3,7 +3,7 @@ import 'package:grenta_store/common.dart';
 import 'package:grenta_store/controllers/internet%20controller.dart';
 import 'package:grenta_store/models/product.dart';
 import 'package:get/get.dart';
-import 'package:grenta_store/network%20image%20widget.dart';
+import 'package:grenta_store/widgets/network%20image%20widget.dart';
 import 'package:grenta_store/views/home/product%20details%20screen.dart';
 import 'package:grenta_store/widgets/CircularIndicator.dart';
 import 'package:cached_network_image/cached_network_image.dart';

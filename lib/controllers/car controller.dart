@@ -2,7 +2,7 @@ import 'package:get/get.dart';
 import 'package:grenta_store/models/product%20details.dart';
 import 'package:grenta_store/models/product.dart';
 
-import '../models/orderd product.dart';
+import '../models/ordered product.dart';
 
 class CarController extends GetxController {
   late Product currentProduct;
@@ -30,6 +30,21 @@ class CarController extends GetxController {
   List<OrderedProduct> carItemsList = [];
   RxString selectedSize = "".obs;
   RxInt carItemsCount = 0.obs;
+  Rx<OrderedProduct> currentOrderedProduct = OrderedProduct(
+          product: Product(price: 0, id: "0", mainImageURL: "", name: ""),
+          selectedSize: "")
+      .obs;
+  void setCurrentOrderedProduct(OrderedProduct orderedProduct) {
+    currentOrderedProduct.value = orderedProduct;
+    currentOrderedProduct.value.product = currentProduct;
+  }
+
+  void removeProduct() {
+    carItemsList.remove(currentProduct);
+    update();
+    //toDo increase the quan of order quan
+  }
+
   void addProduct() {
     carItemsCount.value++;
     for (OrderedProduct item in carItemsList) {
@@ -37,6 +52,7 @@ class CarController extends GetxController {
           item.selectedSize == selectedSize.value) {
         item.increaseCount();
         //toDo decrease the quan of order quan
+
         return;
       }
     }
@@ -45,9 +61,20 @@ class CarController extends GetxController {
     //toDo decrease the quan of order quan
   }
 
+  void decrementProduct() {
+    carItemsCount.value--;
+    for (OrderedProduct item in carItemsList) {
+      if (item.product.id == currentProduct.id &&
+          item.selectedSize == selectedSize.value) {
+        item.decreaseCount();
+        //toDo increase the quan of order quan
+
+      }
+    }
+  }
+
   void setCurrentProduct(Product product) {
     currentProduct = product;
-    print(currentProduct.name);
   }
 
   void setSelectedSize(String size) {
