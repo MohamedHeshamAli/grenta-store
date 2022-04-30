@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:grenta_store/common.dart';
+import 'package:grenta_store/views/home/home%20screen.dart';
+import 'package:grenta_store/views/login/registration%20screen.dart';
 import 'package:grenta_store/widgets/my%20button.dart';
 import 'package:grenta_store/widgets/my%20text%20Form%20field.dart';
 
 class LoginScreen extends StatelessWidget {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  var formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,54 +42,62 @@ class LoginScreen extends StatelessWidget {
                   topLeft: Radius.circular(30),
                 ),
               ),
-              child: Column(
-                children: [
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  MyTextField(
-                      label: "البريد الالكتروني ",
-                      controller: emailController,
-                      keyboardType: TextInputType.emailAddress,
-                      icon: Icons.email,
-                      validator: (s) {
-                        if (s == null || s.isEmpty) {
-                          return "يجب ادخال الايميل";
+              child: Form(
+                key: formKey,
+                child: Column(
+                  children: [
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    MyTextField(
+                        label: "البريد الالكتروني ",
+                        controller: emailController,
+                        keyboardType: TextInputType.emailAddress,
+                        icon: Icons.email,
+                        validator: (s) {
+                          if (s == null || s.isEmpty) {
+                            return "يجب ادخال الايميل";
+                          }
+                        }),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    MyTextField(
+                        label: "كلمة المرور",
+                        controller: passwordController,
+                        keyboardType: TextInputType.visiblePassword,
+                        isPassword: true,
+                        icon: Icons.lock,
+                        validator: (s) {
+                          if (s == null || s.isEmpty) {
+                            return "يجب ادخال كلمة المرور";
+                          }
+                        }),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    MyButton(
+                      label: "تسجيل الدخول",
+                      onPressed: () {
+                        //TODO check from api
+                        if (formKey.currentState!.validate()) {
+                          Get.to(HomeScreen());
                         }
-                      }),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  MyTextField(
-                      label: "كلمة المرور",
-                      controller: passwordController,
-                      keyboardType: TextInputType.visiblePassword,
-                      isPassword: true,
-                      icon: Icons.lock,
-                      validator: (s) {
-                        if (s == null || s.isEmpty) {
-                          return "يجب ادخال كلمة المرور";
-                        }
-                      }),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  MyButton(
-                    label: "تسجيل الدخول",
-                    onPressed: () {
-                      //TODO go to home Screen
-                    },
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  TextButton(
-                      onPressed: () {},
-                      child: Text(
-                        "إنشاء حساب ",
-                        style: textTitleStyle.copyWith(color: appBarColor),
-                      ))
-                ],
+                      },
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    TextButton(
+                        onPressed: () {
+                          Get.to(RegistrationScreen());
+                        },
+                        child: Text(
+                          "إنشاء حساب ",
+                          style: textTitleStyle.copyWith(color: appBarColor),
+                        ))
+                  ],
+                ),
               ),
             )
           ],
