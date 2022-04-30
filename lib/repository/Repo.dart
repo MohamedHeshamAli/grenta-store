@@ -1,4 +1,5 @@
 import 'package:grenta_store/models/category.dart';
+import 'package:grenta_store/models/product%20details.dart';
 import 'package:grenta_store/models/product.dart';
 
 class RemoteRepo {
@@ -28,7 +29,7 @@ class RemoteRepo {
         Product product = Product(
           id: "$i",
           rebate: 30,
-          quant: 5,
+          quant: 3,
           name: "تيشيرت",
           price: 60,
           mainImageURL:
@@ -42,9 +43,9 @@ class RemoteRepo {
           id: "$i",
           quant: 3,
           name: "سوي تيشيرت",
-          price: 60,
+          price: 90,
           mainImageURL:
-              "https://dfcdn.defacto.com.tr/7/W6466AZ_22SP_GN920_01_02.jpg",
+              "https://dfcdn.defacto.com.tr/7/W6108AZ_22SP_BK81_01_01.jpg",
         );
         productList.add(product);
       }
@@ -67,5 +68,36 @@ class RemoteRepo {
       productList.add(product);
     }
     return productList;
+  }
+
+  Future<ProductDetails> getProductDetails({required Product product}) async {
+    if (product.id.length == 1) {
+      return ProductDetails(
+        product: product,
+        detailsImagesURLList: [
+          "https://dfcdn.defacto.com.tr/7/V2887AZ_22SP_GR91_01_01.jpg",
+          "https://dfcdn.defacto.com.tr/7/V2887AZ_22SP_GR91_02_01.jpg",
+          "https://dfcdn.defacto.com.tr/7/V2887AZ_22SP_BK27_02_01.jpg",
+          "https://dfcdn.defacto.com.tr/7/V2887AZ_22SP_BK27_01_01.jpg"
+        ],
+        productDescription:
+            "تي شيرت اسود رياضي بقصّة ضيقة ورقبة مستديرة وطبعات قماشية فنية",
+        quantity: 10,
+        sizesList: ["S", "L", "XL", "XXL", "XXXL"],
+      );
+    } else {
+      return ProductDetails(
+        product: product,
+        detailsImagesURLList: [
+          "https://dfcdn.defacto.com.tr/7/W6108AZ_22SP_BK81_01_01.jpg",
+          "https://dfcdn.defacto.com.tr/7/W6108AZ_22SP_BK81_02_01.jpg",
+          "https://dfcdn.defacto.com.tr/7/W6108AZ_22SP_BK81_04_01.jpg",
+          "https://dfcdn.defacto.com.tr/7/W6108AZ_22SP_BK81_05_01.jpg",
+        ],
+        productDescription: "سويت شيرت بأكمام طويلة ورقبة دائرية وطبعة عادية",
+        quantity: 10,
+        sizesList: ["S", "L", "XL", "XXL", "XXXL"],
+      );
+    }
   }
 }

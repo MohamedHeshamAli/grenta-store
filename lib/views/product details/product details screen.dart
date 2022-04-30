@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:grenta_store/common.dart';
 import 'package:grenta_store/controllers/car%20controller.dart';
 import 'package:grenta_store/widgets/CircularIndicator.dart';
-import 'package:grenta_store/widgets/carbutton.dart';
+import 'package:grenta_store/widgets/car/carbutton.dart';
 import 'package:grenta_store/widgets/product%20details/product%20images.dart';
 import 'package:grenta_store/widgets/product%20details/size%20card.dart';
 
@@ -14,8 +14,7 @@ class ProductDetailsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetX<CarController>(initState: (_) {
-      _controller
-          .setSelectedSize(_controller.currentProductDetails.sizesList[0]);
+      _controller.setProductDetails();
     }, builder: (_) {
       return _controller.loading.value
           ? const CircularIndicator()
@@ -27,7 +26,7 @@ class ProductDetailsScreen extends StatelessWidget {
                 width: double.infinity,
                 child: FloatingActionButton.extended(
                   onPressed: () {
-                    _controller.addProduct();
+                    _controller.addProduct(context);
                   },
                   backgroundColor: appBarColor,
                   label: const Text(

@@ -4,6 +4,8 @@ import 'package:grenta_store/common.dart';
 import 'package:grenta_store/testui.dart';
 import 'package:grenta_store/views/home/home%20screen.dart';
 
+import 'views/login/login screen.dart';
+
 void main() {
   runApp(const MyApp());
 }
@@ -18,7 +20,8 @@ class MyApp extends StatelessWidget {
       locale: Locale("ar"),
       theme: appTheme,
       home: //TestUI(),
-          HomeScreen(),
+          LoginScreen(),
+      //HomeScreen(),
     );
   }
 }

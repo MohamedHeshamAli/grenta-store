@@ -3,14 +3,13 @@ import 'package:get/get.dart';
 import 'package:grenta_store/common.dart';
 import 'package:grenta_store/controllers/car%20controller.dart';
 import 'package:grenta_store/models/ordered%20product.dart';
+import 'package:grenta_store/widgets/alert/alert%20with%20button.dart';
 import 'package:grenta_store/widgets/network%20image%20widget.dart';
 
 class CarOrderCard extends StatelessWidget {
   final OrderedProduct orderedProduct;
-  CarController _controller = Get.find<CarController>();
-  CarOrderCard({required this.orderedProduct}) {
-    _controller.setCurrentOrderedProduct(orderedProduct);
-  }
+  final CarController _controller = Get.find<CarController>();
+  CarOrderCard({required this.orderedProduct});
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +45,16 @@ class CarOrderCard extends StatelessWidget {
                         style: textNameStyle,
                       ),
                       IconButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          AlertWithBtn(
+                              context: context,
+                              btnTxt: "نعم",
+                              message: "هل تريد حذف المنتج",
+                              onPressed: () {
+                                _controller.removeOrderedProduct(
+                                    orderedProduct: orderedProduct);
+                              });
+                        },
                         icon: const Icon(Icons.delete_outline, color: Colors.red
                             // color: Colors.red,
                             ),
@@ -59,7 +67,9 @@ class CarOrderCard extends StatelessWidget {
                   ),
                   orderedProduct.product.rebate != 0
                       ? Text(
-                          orderedProduct.product.price.toString(),
+                          (orderedProduct.product.price *
+                                  orderedProduct.getCount())
+                              .toStringAsFixed(2),
                           style: textLineThroughStyle,
                         )
                       : const SizedBox(),
@@ -70,7 +80,9 @@ class CarOrderCard extends StatelessWidget {
                       FittedBox(
                         fit: BoxFit.fitWidth,
                         child: Text(
-                          orderedProduct.product.priceAfterRebate.toString(),
+                          (orderedProduct.product.priceAfterRebate *
+                                  orderedProduct.getCount())
+                              .toStringAsFixed(2),
                           style: textPriceStyle,
                         ),
                       ),
@@ -86,6 +98,7 @@ class CarOrderCard extends StatelessWidget {
                             IconButton(
                                 onPressed: () {
                                   _controller.incrementProduct(
+                                      context: context,
                                       orderedProduct: orderedProduct);
                                 },
                                 icon: const Icon(Icons.add)),

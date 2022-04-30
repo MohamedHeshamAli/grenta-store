@@ -3,20 +3,60 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:grenta_store/common.dart';
 import 'package:grenta_store/controllers/car%20controller.dart';
-import 'package:grenta_store/widgets/car%20order%20card.dart';
-import 'package:grenta_store/widgets/network%20image%20widget.dart';
+import 'package:grenta_store/widgets/car/car%20order%20card.dart';
 
 class CarScreen extends StatelessWidget {
   CarScreen({Key? key}) : super(key: key);
-  CarController _controller = Get.put(CarController());
+  final CarController _controller = Get.find<CarController>();
   @override
   Widget build(BuildContext context) {
     return GetBuilder<CarController>(
       builder: (_) {
         return Scaffold(
-          bottomSheet: Card(
-            color: appBarColor,
-            child: Text(_controller.carItemsCount.value.toString()),
+          bottomNavigationBar: Row(
+            children: [
+              const SizedBox(
+                width: 10,
+              ),
+              Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text(
+                    "الاجمالي",
+                    style: TextStyle(color: Colors.grey),
+                  ),
+                  Text(
+                    "${_controller.totalPrice.toString()} جنيه",
+                    style: textNameStyle,
+                  )
+                ],
+              ),
+              const Spacer(),
+              Material(
+                color: appBarColor,
+                child: InkWell(
+                  onTap: () {},
+                  child: const SizedBox(
+                    height: kToolbarHeight - 10,
+                    width: 100,
+                    child: Center(
+                      child: Text(
+                        'طلب',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(
+                width: 10,
+              ),
+            ],
           ),
           appBar: AppBar(
             title: const Text(

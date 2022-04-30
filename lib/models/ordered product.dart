@@ -9,9 +9,10 @@ class OrderedProduct {
     required this.selectedSize,
   });
   bool increaseCount() {
-    if (product.quant > _count) {
+    if (product.quant > 0) {
       _count++;
       product.quant--;
+
       return true;
     } else {
       return false;
