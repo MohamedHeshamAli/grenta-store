@@ -1,11 +1,24 @@
 import 'package:grenta_store/models/category.dart';
 import 'package:grenta_store/models/product%20details.dart';
 import 'package:grenta_store/models/product.dart';
+import 'dart:convert';
+
+import 'package:http/http.dart' as http;
 
 class RemoteRepo {
+  final String _baseurl = "localhost:5000";
   Future<List<Category>> getCategories() async {
     List<Category> categoryList = [];
+    var respons = await http.get(Uri.http(_baseurl, "categories/all", {}));
 
+    if (respons.statusCode == 200) {
+      List data = jsonDecode(respons.body);
+      for (var jsonMap in data) {
+        Category category = Category.fromJson(jsonMap);
+      }
+    } else {
+      throw Exception((e) => print(e));
+    }
     Category category = Category(
         id: "1",
         imageURL: "https://dfcdn.defacto.com.tr/7/M4793AZ_NS_BG694_01_01.jpg",
@@ -24,32 +37,48 @@ class RemoteRepo {
       {required String categoryId}) async {
     List<Product> productList = [];
 
-    if (categoryId == "1") {
-      for (int i = 0; i < 10; i++) {
-        Product product = Product(
-          id: "$i",
-          rebate: 30,
-          quant: 3,
-          name: "تيشيرت",
-          price: 60,
-          mainImageURL:
-              "https://dfcdn.defacto.com.tr/7/V2887AZ_22SP_GR91_02_01.jpg",
-        );
-        productList.add(product);
+    try {
+      var response = await http.get(Uri.http(_baseurl, "/api/products/all"));
+      if (response.statusCode == 200) {
+        List data = jsonDecode(response.body);
+
+        for (var productJson in data) {
+          Product product = Product.fromJson(productJson);
+          productList.add(product);
+        }
+      } else {
+        throw Exception((e) => print(e));
       }
-    } else {
-      for (int i = 10; i < 20; i++) {
-        Product product = Product(
-          id: "$i",
-          quant: 3,
-          name: "سوي تيشيرت",
-          price: 90,
-          mainImageURL:
-              "https://dfcdn.defacto.com.tr/7/W6108AZ_22SP_BK81_01_01.jpg",
-        );
-        productList.add(product);
-      }
+    } catch (e) {
+      print(e);
     }
+
+    // if (categoryId == "1") {
+    //   for (int i = 0; i < 10; i++) {
+    //     Product product = Product(
+    //       id: "$i",
+    //       rebate: 30,
+    //       quant: 3,
+    //       name: "تيشيرت",
+    //       price: 60,
+    //       mainImageURL:
+    //           "https://dfcdn.defacto.com.tr/7/V2887AZ_22SP_GR91_02_01.jpg",
+    //     );
+    //     productList.add(product);
+    //   }
+    // } else {
+    //   for (int i = 10; i < 20; i++) {
+    //     Product product = Product(
+    //       id: "$i",
+    //       quant: 3,
+    //       name: "سوي تيشيرت",
+    //       price: 90,
+    //       mainImageURL:
+    //           "https://dfcdn.defacto.com.tr/7/W6108AZ_22SP_BK81_01_01.jpg",
+    //     );
+    //     productList.add(product);
+    //   }
+    // }
     return productList;
   }
 
@@ -71,6 +100,16 @@ class RemoteRepo {
   }
 
   Future<ProductDetails> getProductDetails({required Product product}) async {
+    var response = await http.get(Uri.http(_baseurl, "", {}));
+    if (response.statusCode == 200) {
+      List data = jsonDecode(response.body);
+      for (var jsonMap in data) {
+        ProductDetails productDetails =
+            ProductDetails.fromJson(jsonMap, product);
+      }
+    } else {
+      throw Exception((e) => print(e));
+    }
     if (product.id.length == 1) {
       return ProductDetails(
         product: product,
@@ -98,6 +137,31 @@ class RemoteRepo {
         quantity: 10,
         sizesList: ["S", "L", "XL", "XXL", "XXXL"],
       );
+    }
+  }
+
+  Future<void> createNewAccount() async {
+    var response =
+        await http.post(Uri.http(_baseurl, "customers/add", {}), body: {
+      "name": "abdo1",
+      "phoneNo1": "1",
+      "phoneNo2": "1",
+      "city": {"id": 1},
+      "address": "giza",
+      "distract": "cairo",
+      "email": "abdo",
+      "notes": "1",
+      "status": "s",
+      "password": "1"
+    });
+  }
+
+  Future<void> login({required String email, required String passwor}) async {
+    var response = await http.get(Uri.http(_baseurl, "customers/all"));
+    if (response.statusCode == 200) {
+      List data = jsonDecode(response.body);
+    } else {
+      throw Exception((e) => print(e));
     }
   }
 }

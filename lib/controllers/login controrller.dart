@@ -5,6 +5,6 @@ class LoginController extends GetxController {
   RxBool loginError = false.obs;
   RxBool registrationLoading = false.obs;
   RxBool registrationError = false.obs;
-  void login() {}
-  void registerAccount() {}
+  Future<void> login({required String email, required String password}) async {}
+  void registerAccount() async {}
 }

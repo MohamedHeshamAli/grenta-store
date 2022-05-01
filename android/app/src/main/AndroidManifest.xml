@@ -1,10 +1,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.grenta_store">
+    <uses-permission android:name="android.permission.INTERNET"/>
    <application
-        android:label="grenta_store"
+        android:label="grenta store"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
-        <activity
+
+       <activity
             android:name=".MainActivity"
             android:exported="true"
             android:launchMode="singleTop"

@@ -19,4 +19,13 @@ class Product {
         ? priceAfterRebate = price
         : priceAfterRebate = price - price * rebate / 100;
   }
+  factory Product.fromJson(Map<String, dynamic> productJson) {
+    return Product(
+        rebate: productJson["discount"],
+        quant: productJson["minQuan"].round(),
+        id: productJson["id"].toString(),
+        name: productJson["name"],
+        price: productJson["sal1"],
+        mainImageURL: productJson["imageUrl"] ?? "no image");
+  }
 }

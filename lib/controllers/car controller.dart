@@ -64,7 +64,7 @@ class CarController extends GetxController {
           totalPrice += (currentProduct.priceAfterRebate);
           update();
         } else {
-          AlertMessage(context, "لايمكنك اضافة المزيد");
+          alertMessage(context, "لايمكنك اضافة المزيد");
         }
 
         return;
@@ -79,7 +79,7 @@ class CarController extends GetxController {
       carItemsCount.value++;
       update();
     } else {
-      AlertMessage(context, "لايمكنك اضافة المزيد");
+      alertMessage(context, "لايمكنك اضافة المزيد");
     }
   }
 
@@ -94,7 +94,7 @@ class CarController extends GetxController {
           carItemsCount.value++;
           update();
         } else {
-          AlertMessage(context, "لايمكنك اضافة المزيد");
+          alertMessage(context, "لايمكنك اضافة المزيد");
         }
         return;
       }
@@ -108,7 +108,7 @@ class CarController extends GetxController {
       carItemsCount.value++;
       update();
     } else {
-      AlertMessage(context, "لايمكنك اضافة المزيد");
+      alertMessage(context, "لايمكنك اضافة المزيد");
     }
     //toDo decrease the quan of order quan
   }
@@ -141,6 +141,7 @@ class CarController extends GetxController {
     currentProductDetails =
         await remoteRepo.getProductDetails(product: currentProduct);
     setSelectedSize(currentProductDetails.sizesList[0]);
+
     loading.value = false;
   }
 }

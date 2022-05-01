@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:grenta_store/common.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 
-void AlertMessage(context, String message) {
+void alertMessage(context, String message) {
   Alert(
     context: context,
     type: AlertType.error,

@@ -13,4 +13,13 @@ class ProductDetails {
     required this.quantity,
     required this.sizesList,
   });
+  factory ProductDetails.fromJson(
+      Map<String, dynamic> productDetailsJson, Product product) {
+    return ProductDetails(
+        product: product,
+        detailsImagesURLList: productDetailsJson[""],
+        productDescription: productDetailsJson[""],
+        quantity: productDetailsJson[""],
+        sizesList: productDetailsJson[""]);
+  }
 }

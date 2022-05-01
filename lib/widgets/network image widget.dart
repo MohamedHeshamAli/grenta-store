@@ -21,36 +21,27 @@ class MyNetworkImage extends StatelessWidget {
   Widget build(BuildContext context) {
     final InternetController _internetController =
         Get.find<InternetController>();
-    return GetX<InternetController>(builder: (_) {
-      if (_internetController.reBuild.value) {
-        return CachedNetworkImage(
-          errorWidget: (_, s, p) => FadeInImage.assetNetwork(
-              placeholder: "images/loading.gif",
-              image: imageUrl,
-              imageErrorBuilder: (_, e, t) => const Icon(Icons.error)),
-          imageUrl: imageUrl,
-          height: imageHeight,
-          width: imageWidth,
-          fit: fit,
-        );
-      } else {
-        return CachedNetworkImage(
-          imageUrl: imageUrl,
-          errorWidget: (_, s, d) {
-            print("Error");
-
-            return Image.asset(
-              "images/NoInternet.png",
-              height: imageHeight,
-              width: imageWidth,
-              fit: BoxFit.fitWidth,
-            );
-          },
-          height: imageHeight,
-          width: imageWidth,
-          fit: fit,
-        );
-      }
+    return GetBuilder<InternetController>(builder: (_) {
+      return CachedNetworkImage(
+        placeholder: (ctx, s) => Image.asset("images/loading.gif"),
+        errorWidget: (_, s, p) => FadeInImage.assetNetwork(
+          placeholder: "images/loading.gif",
+          image: imageUrl,
+          imageErrorBuilder: (_, e, t) =>
+              _internetController.internetCurrentStatus
+                  ? const Icon(Icons.error)
+                  : Image.asset(
+                      "images/NoInternet.png",
+                      height: imageHeight,
+                      width: imageWidth,
+                      fit: fit,
+                    ),
+        ),
+        imageUrl: imageUrl,
+        height: imageHeight,
+        width: imageWidth,
+        fit: fit,
+      );
     });
   }
 }
