@@ -11,6 +11,8 @@ import 'package:grenta_store/widgets/my%20button.dart';
 import 'package:grenta_store/widgets/my%20text%20Form%20field.dart';
 
 class LoginScreen extends StatelessWidget {
+  bool isHome;
+  LoginScreen({this.isHome = true});
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   final LoginController _controller = Get.put(LoginController());
@@ -99,7 +101,9 @@ class LoginScreen extends StatelessWidget {
                                       alertMessage(context,
                                           "الايميل او كلمه المرور خطأ برجاء المحاوله مرة اخرى");
                                     } else {
-                                      Get.off(HomeScreen());
+                                      isHome
+                                          ? Get.off(HomeScreen())
+                                          : Get.back();
                                     }
                                   } else {
                                     alertMessage(context,
@@ -114,12 +118,25 @@ class LoginScreen extends StatelessWidget {
                     ),
                     TextButton(
                         onPressed: () {
-                          Get.to(RegistrationScreen());
+                          Get.to(RegistrationScreen(
+                            isHome: isHome,
+                          ));
                         },
                         child: Text(
                           "إنشاء حساب ",
                           style: textTitleStyle.copyWith(color: appBarColor),
-                        ))
+                        )),
+                    isHome
+                        ? TextButton(
+                            onPressed: () {
+                              Get.to(HomeScreen());
+                            },
+                            child: Text(
+                              "تخطي التسجيل ",
+                              style:
+                                  textPriceStyle.copyWith(color: primaryCollor),
+                            ))
+                        : const SizedBox(),
                   ],
                 ),
               ),

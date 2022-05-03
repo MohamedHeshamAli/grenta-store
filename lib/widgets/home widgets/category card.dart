@@ -1,9 +1,9 @@
-import 'package:circular_profile_avatar/circular_profile_avatar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:grenta_store/common.dart';
 import 'package:grenta_store/controllers/home%20controller.dart';
 import 'package:grenta_store/models/category.dart';
+import 'package:grenta_store/widgets/network%20image%20widget.dart';
 
 class CategoryCard extends StatelessWidget {
   final Category category;
@@ -16,7 +16,7 @@ class CategoryCard extends StatelessWidget {
   });
   @override
   Widget build(BuildContext context) {
-    color = isSellected ? Theme.of(context).bottomAppBarColor : Colors.grey;
+    color = isSellected ? appBarColor : Colors.grey;
     return GestureDetector(
       onTap: () {
         _controller.changeCategory(category);
@@ -26,13 +26,23 @@ class CategoryCard extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            CircularProfileAvatar(
-              category.imageURL,
-              borderColor: color,
-              radius: 50,
-              borderWidth: 3,
-            ),
             Container(
+              width: 100,
+              height: 100,
+              child: ClipRRect(
+                borderRadius: const BorderRadius.all(
+                  Radius.circular(50),
+                ),
+                child: MyNetworkImage(
+                  imageUrl: category.imageURL,
+                ),
+              ),
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                border: Border.all(color: color, width: 3),
+              ),
+            ),
+            SizedBox(
                 width: 100,
                 child: Text(
                   category.name,

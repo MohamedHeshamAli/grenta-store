@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:grenta_store/repository/Repo.dart';
 
+import 'models/customer.dart';
+
 RemoteRepo remoteRepo = RemoteRepo();
+Customer? currentCustomer;
 
 const appBarColor = Color(0xff2781aa);
 const primaryCollor = Color(0xff003147);

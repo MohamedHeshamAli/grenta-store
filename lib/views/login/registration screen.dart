@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:grenta_store/controllers/login%20controrller.dart';
+import 'package:grenta_store/views/home/home%20screen.dart';
+import 'package:grenta_store/widgets/CircularIndicator.dart';
 import 'package:grenta_store/widgets/my%20button.dart';
 import 'package:grenta_store/widgets/my%20drag%20down%20button.dart';
 import 'package:grenta_store/widgets/my%20text%20Form%20field.dart';
 
 // ignore: must_be_immutable
 class RegistrationScreen extends StatelessWidget {
-  TextEditingController emailController = TextEditingController();
-  TextEditingController nameController = TextEditingController();
-  TextEditingController phone1Controller = TextEditingController();
-  TextEditingController phone2Controller = TextEditingController();
-  TextEditingController addressController = TextEditingController();
-  TextEditingController distractController = TextEditingController();
-  TextEditingController password1Controller = TextEditingController();
-  TextEditingController password2Controller = TextEditingController();
+  bool isHome;
+
+  final LoginController _controller = Get.find<LoginController>();
+
   var formKey = GlobalKey<FormState>();
 
-  RegistrationScreen({Key? key}) : super(key: key);
+  RegistrationScreen({Key? key, this.isHome = true}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,7 +30,7 @@ class RegistrationScreen extends StatelessWidget {
             children: [
               MyTextField(
                   label: "الاسم ",
-                  controller: nameController,
+                  controller: _controller.nameController,
                   validator: (s) {
                     if (s == null || s.isEmpty) {
                       return "يجب ادخال الاسم";
@@ -41,7 +41,7 @@ class RegistrationScreen extends StatelessWidget {
               ),
               MyTextField(
                   label: "البريد الالكتروني ",
-                  controller: emailController,
+                  controller: _controller.emailController,
                   keyboardType: TextInputType.emailAddress,
                   icon: Icons.email,
                   validator: (s) {
@@ -55,7 +55,7 @@ class RegistrationScreen extends StatelessWidget {
               ),
               MyTextField(
                   label: "الهاتف 1  ",
-                  controller: phone1Controller,
+                  controller: _controller.phone1Controller,
                   keyboardType: TextInputType.phone,
                   icon: Icons.phone,
                   validator: (s) {
@@ -75,7 +75,7 @@ class RegistrationScreen extends StatelessWidget {
               ),
               MyTextField(
                   label: "الهاتف 2 (اختياري) ",
-                  controller: phone2Controller,
+                  controller: _controller.phone2Controller,
                   keyboardType: TextInputType.phone,
                   icon: Icons.phone,
                   validator: (s) {
@@ -93,7 +93,7 @@ class RegistrationScreen extends StatelessWidget {
               ),
               MyTextField(
                   label: "العنوان ",
-                  controller: addressController,
+                  controller: _controller.addressController,
                   icon: Icons.map,
                   validator: (s) {
                     if (s == null || s.isEmpty) {
@@ -114,7 +114,7 @@ class RegistrationScreen extends StatelessWidget {
               ),
               MyTextField(
                   label: "المنطقة ",
-                  controller: distractController,
+                  controller: _controller.distractController,
                   icon: Icons.map,
                   validator: (s) {
                     if (s == null || s.isEmpty) {
@@ -126,15 +126,15 @@ class RegistrationScreen extends StatelessWidget {
               ),
               MyTextField(
                   label: "كلمة المرور",
-                  controller: password1Controller,
+                  controller: _controller.password1Controller,
                   keyboardType: TextInputType.visiblePassword,
                   isPassword: true,
                   icon: Icons.lock,
                   validator: (s) {
                     if (s == null || s.isEmpty) {
                       return "يجب ادخال كلمة المرور";
-                    } else if (password1Controller.text !=
-                        password2Controller.text) {
+                    } else if (_controller.password1Controller.text !=
+                        _controller.password2Controller.text) {
                       return "يجب ان تكةن كلمتي المرور متطابقتين";
                     }
                     return null;
@@ -144,15 +144,15 @@ class RegistrationScreen extends StatelessWidget {
               ),
               MyTextField(
                   label: "كلمة المرور",
-                  controller: password2Controller,
+                  controller: _controller.password2Controller,
                   keyboardType: TextInputType.visiblePassword,
                   isPassword: true,
                   icon: Icons.lock,
                   validator: (s) {
                     if (s == null || s.isEmpty) {
                       return "يجب ادخال كلمة المرور";
-                    } else if (password1Controller.text !=
-                        password2Controller.text) {
+                    } else if (_controller.password1Controller.text !=
+                        _controller.password2Controller.text) {
                       return "يجب ان تكةن كلمتي المرور متطابقتين";
                     }
                     return null;
@@ -160,14 +160,30 @@ class RegistrationScreen extends StatelessWidget {
               const SizedBox(
                 height: 20,
               ),
-              MyButton(
-                label: "إنشاء",
-                onPressed: () {
-                  if (formKey.currentState!.validate()) {
-                    //ToDo send online api
-                  }
-                },
-              )
+              GetX<LoginController>(builder: (_) {
+                return _controller.registrationLoading.value
+                    ? const CircularIndicator()
+                    : MyButton(
+                        label: "إنشاء",
+                        onPressed: () {
+                          if (formKey.currentState!.validate()) {
+                            //ToDo send online api
+                            if (_controller.loginError.value == false) {
+                              if (isHome) {
+                                Get.offAll(HomeScreen());
+                              } else {
+                                Get.back();
+                                Get.back();
+                              }
+                            }
+                            // Navigator.of(context).pushNamedAndRemoveUntil(
+                            //     RouteGenerator.main_home,
+                            //         (Route<dynamic> route) => false
+                            // );
+                          }
+                        },
+                      );
+              })
             ],
           ),
         ),

@@ -4,7 +4,6 @@ import 'package:grenta_store/models/category.dart';
 import 'package:grenta_store/models/product%20details.dart';
 import 'package:grenta_store/models/product.dart';
 import 'package:grenta_store/widgets/home%20widgets/product%20card.dart';
-import 'package:circular_profile_avatar/circular_profile_avatar.dart';
 import 'common.dart';
 import 'widgets/home widgets/category card.dart';
 import 'package:carousel_slider/carousel_slider.dart';

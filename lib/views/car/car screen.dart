@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:grenta_store/common.dart';
 import 'package:grenta_store/controllers/car%20controller.dart';
+import 'package:grenta_store/views/login/login%20screen.dart';
 import 'package:grenta_store/widgets/car/car%20order%20card.dart';
 
 class CarScreen extends StatelessWidget {
@@ -36,7 +37,13 @@ class CarScreen extends StatelessWidget {
               Material(
                 color: appBarColor,
                 child: InkWell(
-                  onTap: () {},
+                  onTap: () {
+                    if (currentCustomer == null) {
+                      Get.to(LoginScreen(
+                        isHome: false,
+                      ));
+                    }
+                  },
                   child: const SizedBox(
                     height: kToolbarHeight - 10,
                     width: 100,
