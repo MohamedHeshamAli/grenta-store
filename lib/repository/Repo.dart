@@ -58,7 +58,6 @@ class RemoteRepo {
         Product product = Product(
           id: "$i",
           rebate: 30,
-          quant: 3,
           name: "تيشيرت",
           price: 60,
           mainImageURL:
@@ -70,7 +69,6 @@ class RemoteRepo {
       for (int i = 10; i < 20; i++) {
         Product product = Product(
           id: "$i",
-          quant: 3,
           name: "سوي تيشيرت",
           price: 90,
           mainImageURL:
@@ -86,8 +84,7 @@ class RemoteRepo {
     List<Product> productList = [];
     for (int i = 0; i < 10; i++) {
       Product product = Product(
-        id: "id",
-        quant: 3,
+        id: "$i",
         rebate: 30,
         name: "تيشيرت",
         price: 60,
@@ -110,7 +107,7 @@ class RemoteRepo {
     // } else {
     //   throw Exception((e) => print(e));
     // }
-    if (product.id.length == 1) {
+    if (int.parse(product.id) < 10) {
       return ProductDetails(
         product: product,
         detailsImagesURLList: [
@@ -121,8 +118,7 @@ class RemoteRepo {
         ],
         productDescription:
             "تي شيرت اسود رياضي بقصّة ضيقة ورقبة مستديرة وطبعات قماشية فنية",
-        quantity: 10,
-        sizesList: ["S", "L", "XL", "XXL", "XXXL"],
+        sizesMap: {"S": 3, "L": 2, "XL": 5, "XXL": 7, "XXXL": 1},
       );
     } else {
       return ProductDetails(
@@ -134,8 +130,7 @@ class RemoteRepo {
           "https://dfcdn.defacto.com.tr/7/W6108AZ_22SP_BK81_05_01.jpg",
         ],
         productDescription: "سويت شيرت بأكمام طويلة ورقبة دائرية وطبعة عادية",
-        quantity: 10,
-        sizesList: ["S", "L", "XL", "XXL", "XXXL"],
+        sizesMap: {"S": 3, "L": 2, "XL": 5, "XXL": 7, "XXXL": 1},
       );
     }
   }

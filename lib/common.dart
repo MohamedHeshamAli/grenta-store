@@ -5,6 +5,8 @@ import 'models/customer.dart';
 
 RemoteRepo remoteRepo = RemoteRepo();
 Customer? currentCustomer;
+double screenWidth = 1;
+double screenHeight = 2;
 
 const appBarColor = Color(0xff2781aa);
 const primaryCollor = Color(0xff003147);
@@ -18,6 +20,9 @@ final appTheme = ThemeData(
     color: appBarColor,
   ),
   primaryColor: primaryCollor,
+);
+const textHints=TextStyle(
+  color: Colors.grey,fontSize: 12
 );
 const textLineThroughStyle = TextStyle(
   decoration: TextDecoration.lineThrough,

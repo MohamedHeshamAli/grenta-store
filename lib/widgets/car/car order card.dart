@@ -5,6 +5,7 @@ import 'package:grenta_store/controllers/car%20controller.dart';
 import 'package:grenta_store/models/ordered%20product.dart';
 import 'package:grenta_store/widgets/alert/alert%20with%20button.dart';
 import 'package:grenta_store/widgets/network%20image%20widget.dart';
+import 'package:grenta_store/views/product%20details/product%20details%20screen.dart';
 
 class CarOrderCard extends StatelessWidget {
   final OrderedProduct orderedProduct;
@@ -14,6 +15,12 @@ class CarOrderCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
+      onTap: () {
+        _controller.setCurrentProductDetails(orderedProduct.productDetails);
+        _controller.setSelectedSize(orderedProduct.selectedSize);
+        Get.to(ProductDetailsScreen());
+        // Get.to(ProductDetailsScreen());
+      },
       child: Container(
         height: 160,
         margin: const EdgeInsets.all(10),
@@ -26,7 +33,7 @@ class CarOrderCard extends StatelessWidget {
           children: [
             MyNetworkImage(
               imageWidth: 120,
-              imageUrl: orderedProduct.product.mainImageURL,
+              imageUrl: orderedProduct.productDetails!.product.mainImageURL,
               fit: BoxFit.fill,
             ),
             const SizedBox(
@@ -40,7 +47,7 @@ class CarOrderCard extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        orderedProduct.product.name,
+                        orderedProduct.productDetails!.product.name,
                         overflow: TextOverflow.ellipsis,
                         style: textNameStyle,
                       ),
@@ -65,9 +72,9 @@ class CarOrderCard extends StatelessWidget {
                     " مقاس : ${orderedProduct.selectedSize}",
                     style: textNameStyle.copyWith(fontSize: 16),
                   ),
-                  orderedProduct.product.rebate != 0
+                  orderedProduct.productDetails!.product.rebate != 0
                       ? Text(
-                          (orderedProduct.product.price *
+                          (orderedProduct.productDetails!.product.price *
                                   orderedProduct.getCount())
                               .toStringAsFixed(2),
                           style: textLineThroughStyle,
@@ -80,7 +87,8 @@ class CarOrderCard extends StatelessWidget {
                       FittedBox(
                         fit: BoxFit.fitWidth,
                         child: Text(
-                          (orderedProduct.product.priceAfterRebate *
+                          (orderedProduct
+                                      .productDetails!.product.priceAfterRebate *
                                   orderedProduct.getCount())
                               .toStringAsFixed(2),
                           style: textPriceStyle,

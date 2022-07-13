@@ -8,32 +8,14 @@ import '../models/ordered product.dart';
 
 class CarController extends GetxController {
   late Product currentProduct;
-  ProductDetails currentProductDetails = ProductDetails(
-    product: Product(
-      id: "id",
-      quant: 3,
-      rebate: 30,
-      name: "تيشيرت",
-      price: 60,
-      mainImageURL:
-          "https://dfcdn.defacto.com.tr/7/V2887AZ_22SP_GR91_02_01.jpg",
-    ),
-    detailsImagesURLList: [
-      "https://dfcdn.defacto.com.tr/7/V2887AZ_22SP_GR91_01_01.jpg",
-      "https://dfcdn.defacto.com.tr/7/V2887AZ_22SP_GR91_02_01.jpg",
-      "https://dfcdn.defacto.com.tr/7/V2887AZ_22SP_BK27_02_01.jpg",
-      "https://dfcdn.defacto.com.tr/7/V2887AZ_22SP_BK27_01_01.jpg"
-    ],
-    productDescription:
-        "تي شيرت اسود رياضي بقصّة ضيقة ورقبة مستديرة وطبعات قماشية فنية",
-    quantity: 10,
-    sizesList: ["S", "L", "XL", "XXL", "XXXL"],
-  );
+  late ProductDetails currentProductDetails;
   RxBool loading = false.obs;
   List<OrderedProduct> carItemsList = [];
   RxString selectedSize = "".obs;
   RxInt carItemsCount = 0.obs;
   double totalPrice = 0.0;
+  @override
+
   // Rx<OrderedProduct> currentOrderedProduct = OrderedProduct(
   //     product:
   //     Product(price: 0, quant: 3, id: "0", mainImageURL: "", name: ""),
@@ -45,8 +27,8 @@ class CarController extends GetxController {
   // }
 
   void removeOrderedProduct({required OrderedProduct orderedProduct}) {
-    totalPrice -=
-        (orderedProduct.getCount() * orderedProduct.product.priceAfterRebate);
+    totalPrice -= (orderedProduct.getCount() *
+        orderedProduct.productDetails!.product.priceAfterRebate);
     carItemsCount.value -= orderedProduct.getCount();
     orderedProduct.resetCount();
     carItemsList.remove(orderedProduct);
@@ -56,7 +38,7 @@ class CarController extends GetxController {
 
   void addProduct(context) {
     for (OrderedProduct item in carItemsList) {
-      if (item.product.id == currentProduct.id &&
+      if (item.productDetails!.product.id == currentProduct.id &&
           item.selectedSize == selectedSize.value) {
         bool isAdded = item.increaseCount();
         if (isAdded) {
@@ -71,10 +53,11 @@ class CarController extends GetxController {
       }
     }
     OrderedProduct newOrder = OrderedProduct(
-        product: currentProduct, selectedSize: selectedSize.value);
+        productDetails: currentProductDetails,
+        selectedSize: selectedSize.value);
     bool isAdded = newOrder.increaseCount();
     if (isAdded) {
-      totalPrice += newOrder.product.priceAfterRebate;
+      totalPrice += newOrder.productDetails!.product.priceAfterRebate;
       carItemsList.add(newOrder);
       carItemsCount.value++;
       update();
@@ -86,11 +69,12 @@ class CarController extends GetxController {
   void incrementProduct(
       {required OrderedProduct orderedProduct, required context}) {
     for (OrderedProduct item in carItemsList) {
-      if (item.product.id == orderedProduct.product.id &&
+      if (item.productDetails!.product.id ==
+              orderedProduct.productDetails!.product.id &&
           item.selectedSize == orderedProduct.selectedSize) {
         bool isAdded = item.increaseCount();
         if (isAdded) {
-          totalPrice += orderedProduct.product.priceAfterRebate;
+          totalPrice += orderedProduct.productDetails!.product.priceAfterRebate;
           carItemsCount.value++;
           update();
         } else {
@@ -100,10 +84,11 @@ class CarController extends GetxController {
       }
     }
     OrderedProduct newOrder = OrderedProduct(
-        product: currentProduct, selectedSize: selectedSize.value);
+        productDetails: currentProductDetails,
+        selectedSize: selectedSize.value);
     bool isAdded = newOrder.increaseCount();
     if (isAdded) {
-      totalPrice += newOrder.product.priceAfterRebate;
+      totalPrice += newOrder.productDetails!.product.priceAfterRebate;
       carItemsList.add(newOrder);
       carItemsCount.value++;
       update();
@@ -115,11 +100,12 @@ class CarController extends GetxController {
 
   void decrementProduct({required OrderedProduct orderedProduct}) {
     for (OrderedProduct item in carItemsList) {
-      if (item.product.id == orderedProduct.product.id &&
+      if (item.productDetails!.product.id ==
+              orderedProduct.productDetails!.product.id &&
           item.selectedSize == orderedProduct.selectedSize) {
         bool isDecreased = item.decreaseCount();
         if (isDecreased) {
-          totalPrice -= orderedProduct.product.priceAfterRebate;
+          totalPrice -= orderedProduct.productDetails!.product.priceAfterRebate;
           carItemsCount.value--;
         }
         update();
@@ -132,16 +118,20 @@ class CarController extends GetxController {
     currentProduct = product;
   }
 
+  void setCurrentProductDetails(ProductDetails? productDetails) {
+    currentProductDetails = productDetails!;
+    currentProduct = productDetails.product;
+  }
+
   void setSelectedSize(String size) {
     selectedSize.value = size;
   }
 
-  void setProductDetails() async {
+  Future getProductDetails() async {
     loading.value = true;
     currentProductDetails =
         await remoteRepo.getProductDetails(product: currentProduct);
-    setSelectedSize(currentProductDetails.sizesList[0]);
-
+    setSelectedSize(currentProductDetails.sizesMap.keys.toList()[0]);
     loading.value = false;
   }
 }

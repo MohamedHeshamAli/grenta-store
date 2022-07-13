@@ -5,8 +5,12 @@ import 'package:grenta_store/testui.dart';
 import 'package:grenta_store/views/home/home%20screen.dart';
 
 import 'views/login/login screen.dart';
+import 'package:flutter/services.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations(
+      [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
   runApp(const MyApp());
 }
 
@@ -19,7 +23,8 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       locale: Locale("ar"),
       theme: appTheme,
-      home: //TestUI(),
+      home:
+      //TestUI(),
           LoginScreen(),
       //HomeScreen(),
     );

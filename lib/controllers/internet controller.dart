@@ -50,6 +50,6 @@ class InternetController extends GetxController {
   }
 
   void setInternetToggleMessage() {
-    setToast(internetCurrentStatus ? "يوجد بالانتر نت" : "لا انترنت");
+    setToast(internetCurrentStatus ? "متصل بالانترنت" : "لاانترنت");
   }
 }

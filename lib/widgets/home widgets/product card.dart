@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:grenta_store/common.dart';
-import 'package:grenta_store/controllers/internet%20controller.dart';
 import 'package:grenta_store/models/product.dart';
 import 'package:get/get.dart';
 import 'package:grenta_store/widgets/network%20image%20widget.dart';
 import 'package:grenta_store/views/product%20details/product%20details%20screen.dart';
-import 'package:grenta_store/widgets/CircularIndicator.dart';
-import 'package:cached_network_image/cached_network_image.dart';
+
 import '../../controllers/car controller.dart';
 
 class ProductCard extends StatelessWidget {
@@ -17,13 +15,12 @@ class ProductCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        //toDo go to product details screen
         final CarController _controller = Get.find<CarController>();
         _controller.setCurrentProduct(product);
+        _controller.getProductDetails();
         Get.to(ProductDetailsScreen());
       },
       child: Card(
-        margin: const EdgeInsets.all(10),
         elevation: 4,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
         child: Column(

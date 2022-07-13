@@ -11,7 +11,6 @@ class HomeController extends GetxController {
   RxBool loadingMoreProducts = false.obs;
   Rx<Product> selectedProduct = Product(
     id: "id",
-    quant: 3,
     name: "name",
     price: 0,
     mainImageURL: "mainImageURL",
@@ -31,12 +30,11 @@ class HomeController extends GetxController {
   RxList<Product> productList = [
     Product(
       id: "id",
-      quant: 3,
       name: "name",
       price: 0,
       mainImageURL: "mainImageURL",
     )
-  ].obs as RxList<Product>;
+  ].obs;
   Future setCategoryList() async {
     loadingScreen.value = true;
     await Future.delayed(Duration(seconds: 2));
@@ -60,7 +58,7 @@ class HomeController extends GetxController {
 
   Future setCategoryProductsList() async {
     loadingProducts.value = true;
-    await Future.delayed(Duration(seconds: 2));
+    await Future.delayed(Duration(seconds: 1));
     productList.value = [];
     productList.value = await remoteRepo.getCategoryProducts(
         categoryId: selectedCategory.value.id);

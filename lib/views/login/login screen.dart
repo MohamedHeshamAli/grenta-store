@@ -20,6 +20,8 @@ class LoginScreen extends StatelessWidget {
   var formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
+    screenWidth = MediaQuery.of(context).size.width;
+    screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       backgroundColor: Colors.black,
       body: SingleChildScrollView(
@@ -92,11 +94,11 @@ class LoginScreen extends StatelessWidget {
                               onPressed: () async {
                                 //TODO check from api
                                 if (formKey.currentState!.validate()) {
-                                  await _controller.login(
-                                      email: emailController.text,
-                                      password: passwordController.text);
-                                  if (_internetController
-                                      .internetCurrentStatus) {
+                                  if (await _internetController
+                                      .checkInternet()) {
+                                    await _controller.login(
+                                        email: emailController.text,
+                                        password: passwordController.text);
                                     if (_controller.loginError.value) {
                                       alertMessage(context,
                                           "الايميل او كلمه المرور خطأ برجاء المحاوله مرة اخرى");
@@ -128,8 +130,13 @@ class LoginScreen extends StatelessWidget {
                         )),
                     isHome
                         ? TextButton(
-                            onPressed: () {
-                              Get.to(HomeScreen());
+                            onPressed: () async {
+                              if (await _internetController.checkInternet()) {
+                                Get.to(HomeScreen());
+                              } else {
+                                alertMessage(context,
+                                    "لا يوجد انتر نت برجاء المحاوله مرة اخرى");
+                              }
                             },
                             child: Text(
                               "تخطي التسجيل ",

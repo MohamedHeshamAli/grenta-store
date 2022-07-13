@@ -5,10 +5,8 @@ class Product {
   late final double priceAfterRebate;
   final double rebate;
   final String mainImageURL;
-  int quant;
 
   Product({
-    required this.quant,
     required this.id,
     required this.name,
     required this.price,
@@ -22,7 +20,6 @@ class Product {
   factory Product.fromJson(Map<String, dynamic> productJson) {
     return Product(
         rebate: productJson["discount"],
-        quant: productJson["minQuan"].round(),
         id: productJson["id"].toString(),
         name: productJson["name"],
         price: productJson["sal1"],

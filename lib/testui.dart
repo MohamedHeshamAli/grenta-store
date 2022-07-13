@@ -1,147 +1,142 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:grenta_store/models/category.dart';
-import 'package:grenta_store/models/product%20details.dart';
-import 'package:grenta_store/models/product.dart';
-import 'package:grenta_store/widgets/home%20widgets/product%20card.dart';
-import 'common.dart';
-import 'widgets/home widgets/category card.dart';
-import 'package:carousel_slider/carousel_slider.dart';
+import 'package:get/get.dart';
+import 'package:grenta_store/controllers/internet%20controller.dart';
+import 'package:grenta_store/widgets/network%20image%20widget.dart';
+import 'package:grenta_store/widgets/order/delivery%20tracking%20time%20line.dart';
 
-import 'widgets/product details/product images.dart';
-import 'widgets/product details/size card.dart';
+import 'common.dart';
+import 'models/order.dart';
+
 
 class TestUI extends StatelessWidget {
-  Product product = Product(
-    quant: 3,
-    id: "id",
-    rebate: 30,
-    name: "تيشيرت",
-    price: 60,
-    mainImageURL: "https://dfcdn.defacto.com.tr/7/V2887AZ_22SP_GR91_02_01.jpg",
-  );
-  ProductDetails productDetails = ProductDetails(
-    product: Product(
-      id: "id",
-      quant: 3,
-      rebate: 30,
-      name: "تيشيرت",
-      price: 60,
-      mainImageURL:
-          "https://dfcdn.defacto.com.tr/7/V2887AZ_22SP_GR91_02_01.jpg",
-    ),
-    detailsImagesURLList: [
-      "https://dfcdn.defacto.com.tr/7/V2887AZ_22SP_GR91_01_01.jpg",
-      "https://dfcdn.defacto.com.tr/7/V2887AZ_22SP_GR91_02_01.jpg",
-      "https://dfcdn.defacto.com.tr/7/V2887AZ_22SP_BK27_02_01.jpg",
-      "https://dfcdn.defacto.com.tr/7/V2887AZ_22SP_BK27_01_01.jpg"
-    ],
-    productDescription:
-        "تي شيرت اسود رياضي بقصّة ضيقة ورقبة مستديرة وطبعات قماشية فنية",
-    quantity: 10,
-    sizesList: ["S", "L", "XL", "XXL", "XXXL"],
-  );
-  Category category = Category(
-      id: "id",
-      imageURL: "https://dfcdn.defacto.com.tr/7/M4793AZ_NS_BG694_01_01.jpg",
-      name: "تيشيرت رجالي");
-
+  InternetController _internetController=Get.put(InternetController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          centerTitle: true,
-          title: const Text("تفاصيل المنتج", style: textTitleStyle),
-        ),
-        bottomSheet: Container(
-          height: 40,
-          width: double.infinity,
-          color: Theme.of(context).primaryColor,
-          child: const Center(
-            child: Text(
-              "اضافه الي عربة التسوق",
-              style: textTitleStyle,
+
+      appBar: AppBar(title: const Text("تفاصيل الطلب")),
+      body:Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          DeliveryTracking(deliveryTrackingEnum: DeliveryEnum.ready),
+          Expanded(
+            child: ListView.builder(itemBuilder: (ctx,n)=>
+                Container(
+              height: 150,
+              margin: const EdgeInsets.all(10),
+              padding: const EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                  border: Border.all(color: appBarColor, width: 1),
+                  borderRadius: BorderRadiusDirectional.circular(10)),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  MyNetworkImage(
+                    imageWidth: 100,
+                    imageUrl: "url",
+                    fit: BoxFit.fill,
+                  ),
+                  const SizedBox(
+                    width: 5,
+                  ),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          " تيشيرت ",
+                          overflow: TextOverflow.ellipsis,
+                          style: textNameStyle,
+                        ),
+                        Text(
+                          " مقاس : ${"s"}",
+                          style: textNameStyle.copyWith(fontSize: 16),
+                        ),
+                        Text(
+                          " العدد  : ${"1"}",
+                          style: textNameStyle.copyWith(fontSize: 16),
+                        ),
+
+                        Text(
+                          "${(25.3).toStringAsFixed(2)} جنيه ",
+                          style: textPriceStyle,
+                        ),
+                      ],
+                    ),
+                  ),
+
+                ],
+              ),
+            ),
+            itemCount: 20,),
+          ),
+
+          const Text("التفاصيل",style: textNameStyle),
+          Container(
+            height: 140,
+            margin: const EdgeInsets.all(10),
+            padding: const EdgeInsets.all(10),
+            decoration: BoxDecoration(
+                border: Border.all(color: appBarColor, width: 1),
+                borderRadius: BorderRadiusDirectional.circular(10)),
+            child: Row(
+              children: [
+                const SizedBox(
+                  width: 10,
+                ),
+                Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children:const [
+                    const Text(
+                      "تاريخ الطلب",
+                      style: TextStyle(color: Colors.grey),
+                    ),
+                    const Text(
+                      "رقم الطلب",
+                      style: TextStyle(color: Colors.grey),
+                    ),
+                    const Text(
+                      "المستلم",
+                      style: TextStyle(color: Colors.grey),
+                    ),
+                    const Text(
+                      "الاجمالي",
+                      style: TextStyle(color: Colors.grey),
+                    ),
+
+                  ],
+                ),
+                const Spacer(),
+                Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "25/5/2020",
+                      style: textNameStyle,
+                    ),
+                    Text(
+                      "568",
+                      style: textNameStyle,
+                    ),
+                    Text(
+                      "محمد هشام",
+                      style: textNameStyle,
+                    ),
+                    Text(
+                      "${50.6} جنيه",
+                      style: textNameStyle,
+                    )
+                  ],
+                ),
+
+              ],
             ),
           ),
-        ),
-        body: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Stack(
-              children: [
-                ProductImagesSlider(
-                  imagesURLList: productDetails.detailsImagesURLList,
-                ),
-                CircleAvatar(
-                  backgroundColor: Colors.white,
-                  child: IconButton(
-                    onPressed: () {
-                      //toDo add to favorites
-                    },
-                    icon: Icon(Icons.favorite_border),
-                  ),
-                )
-              ],
-            ),
-            Container(
-              height: 70,
-              padding: EdgeInsets.all(5),
-              child: ListView.separated(
-                scrollDirection: Axis.horizontal,
-                itemBuilder: (ctx, n) {
-                  return SizeCard(
-                    size: productDetails.sizesList[n],
-                  );
-                },
-                separatorBuilder: (ctx, n) => const SizedBox(
-                  width: 5,
-                ),
-                itemCount: productDetails.sizesList.length,
-              ),
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Text(
-                  "  السعر :  ",
-                  style: textTitleStyle.copyWith(
-                      color: Theme.of(context).primaryColor),
-                ),
-                productDetails.product.rebate != 0
-                    ? Text(
-                        productDetails.product.price.toString() + " جنية   ",
-                        style: textLineThroughStyle,
-                      )
-                    : Container(),
-                Text(
-                  productDetails.product.priceAfterRebate.toString() + " جنية",
-                  style: textPriceStyle,
-                )
-              ],
-            ),
-            Text(
-              "  التفاصيل",
-              style: textTitleStyle.copyWith(
-                  color: Theme.of(context).primaryColor),
-            ),
-            const SizedBox(
-              height: 5,
-            ),
-            Expanded(
-                child: SingleChildScrollView(
-              child: Padding(
-                padding: const EdgeInsets.all(3.0),
-                child: Text(
-                  productDetails.productDescription,
-                  style: textPriceStyle.copyWith(color: Colors.grey),
-                  softWrap: true,
-                ),
-              ),
-            )),
-          ],
-        ));
+        ],
+      ),
+    );
   }
 }

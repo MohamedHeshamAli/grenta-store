@@ -1,17 +1,15 @@
 import 'package:grenta_store/models/product.dart';
 
 class ProductDetails {
-  final List<String> detailsImagesURLList;
+  final  List<String> detailsImagesURLList;
   final String productDescription;
-  final List<String> sizesList;
-  final int quantity;
+  final Map<String, int> sizesMap;
   final Product product;
   ProductDetails({
     required this.product,
     required this.detailsImagesURLList,
     required this.productDescription,
-    required this.quantity,
-    required this.sizesList,
+    required this.sizesMap,
   });
   factory ProductDetails.fromJson(
       Map<String, dynamic> productDetailsJson, Product product) {
@@ -19,7 +17,6 @@ class ProductDetails {
         product: product,
         detailsImagesURLList: productDetailsJson[""],
         productDescription: productDetailsJson[""],
-        quantity: productDetailsJson[""],
-        sizesList: productDetailsJson[""]);
+        sizesMap: productDetailsJson[""]);
   }
 }
