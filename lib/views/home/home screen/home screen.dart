@@ -23,40 +23,40 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
 
       return  Scaffold(
-          // bottomNavigationBar:  GetX<HomeController>(builder: (_) {
-          //   return BottomNavigationBar(
-          //     selectedItemColor: primaryCollor,
-          //     unselectedItemColor: Colors.grey,
-          //     type: BottomNavigationBarType.shifting,
-          //     currentIndex: _controller.selectedNaveBar.value,
-          //     onTap: (i) {
-          //       if(_controller.selectedNaveBar.value!=i){
-          //         _controller.changingNavBar(i);
-          //       }
-          //     },
-          //     items: const [
-          //       BottomNavigationBarItem(
-          //           backgroundColor: appBarColor,
-          //           label: "طلباتي",
-          //           icon:
-          //             FaIcon(FontAwesomeIcons.box),
-          //           ),
-          //       BottomNavigationBarItem(
-          //           backgroundColor: appBarColor,
-          //           label: "تسوق",
-          //           icon: Icon(
-          //             Icons.home,
-          //           )),
-          //       // BottomNavigationBarItem(
-          //       //     backgroundColor: appBarColor,
-          //       //     label: "حسابي",
-          //       //     icon: Icon(
-          //       //       Icons.manage_accounts,
-          //       //     ))
-          //     ],
-          //   );
-          // },
-          // ),
+          bottomNavigationBar:  GetX<HomeController>(builder: (_) {
+            return BottomNavigationBar(
+              selectedItemColor: primaryCollor,
+              unselectedItemColor: Colors.grey,
+              type: BottomNavigationBarType.shifting,
+              currentIndex: _controller.selectedNaveBar.value,
+              onTap: (i) {
+                if(_controller.selectedNaveBar.value!=i){
+                  _controller.changingNavBar(i);
+                }
+              },
+              items: const [
+                BottomNavigationBarItem(
+                    backgroundColor: appBarColor,
+                    label: "طلباتي",
+                    icon:
+                      FaIcon(FontAwesomeIcons.box),
+                    ),
+                BottomNavigationBarItem(
+                    backgroundColor: appBarColor,
+                    label: "تسوق",
+                    icon: Icon(
+                      Icons.home,
+                    )),
+                // BottomNavigationBarItem(
+                //     backgroundColor: appBarColor,
+                //     label: "حسابي",
+                //     icon: Icon(
+                //       Icons.manage_accounts,
+                //     ))
+              ],
+            );
+          },
+          ),
           body:ZoomDrawer(style: DrawerStyle.defaultStyle,
             mainScreen:BrowsProductsScreen(),
             menuScreen:MenuWidget() ,
