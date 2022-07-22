@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:grenta_store/common.dart';
+import 'package:grenta_store/common/common.dart';
 import 'package:grenta_store/models/order.dart';
 class OrderDetailsWidget extends StatelessWidget {
   Order order;

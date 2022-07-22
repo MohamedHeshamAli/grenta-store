@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:grenta_store/common.dart';
+import 'package:grenta_store/common/common.dart';
 
 import 'package:grenta_store/models/customer.dart';
 
@@ -9,7 +9,7 @@ class LoginController extends GetxController {
   RxBool loginError = false.obs;
   RxBool registrationLoading = false.obs;
   RxBool registrationError = false.obs;
-  String city = "Cairo";
+  String city = "";
   int cityId = 0;
   TextEditingController emailController = TextEditingController();
   TextEditingController nameController = TextEditingController();
@@ -27,7 +27,15 @@ class LoginController extends GetxController {
   Future<void> login({required String email, required String password}) async {
     loginLoading.value = true;
     loginError.value = false;
-    try {} catch (e) {
+    try {
+      //TODO check by api
+      if(email!="mohamed@gmail.com"||password!="123456"){
+        loginError.value = true;
+      }
+      else{
+        Customer(email: email,password: password);
+      }
+    } catch (e) {
       loginError.value = true;
     }
     loginLoading.value = false;
@@ -38,13 +46,14 @@ class LoginController extends GetxController {
     registrationError.value = false;
     try {
       Customer newCustomer = Customer(
+        password: password1Controller.text,
         name: nameController.text,
         email: emailController.text,
         address: addressController.text,
         city: city,
         distract: distractController.text,
-        phone1: phone1Controller.text,
-        phone2: phone2Controller.text,
+        phone: phone1Controller.text,
+        additionalPhone: phone2Controller.text,
       );
       //ToDo sed data to api
       currentCustomer = newCustomer;

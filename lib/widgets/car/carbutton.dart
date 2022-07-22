@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:grenta_store/common.dart';
+import 'package:grenta_store/common/common.dart';
 import 'package:grenta_store/controllers/car%20controller.dart';
 import 'package:grenta_store/views/car/car%20screen.dart';
 

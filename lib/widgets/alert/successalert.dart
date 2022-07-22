@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:grenta_store/common/common.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 
-void alertMessage(context, String message) {
+void SuccessAlert(context, String message) {
   Alert(
     context: context,
-    type: AlertType.error,
+    type: AlertType.success,
     desc: message,
     buttons: [
       DialogButton(

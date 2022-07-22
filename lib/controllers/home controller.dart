@@ -1,9 +1,14 @@
 import 'package:get/get.dart';
-import 'package:grenta_store/common.dart';
+import 'package:grenta_store/common/common.dart';
 import 'package:grenta_store/models/category.dart';
 import 'package:grenta_store/models/product.dart';
-
+enum NavigationScreensEnum{
+  products,
+  orders,
+  profile
+}
 class HomeController extends GetxController {
+  Rx<NavigationScreensEnum> selectedScreen=NavigationScreensEnum.products.obs;
   RxInt selectedNaveBar = 1.obs;
   RxBool loadingScreen = false.obs;
   RxBool loadingProducts = true.obs;
@@ -74,5 +79,13 @@ class HomeController extends GetxController {
 
   void changingNavBar(int val) {
     selectedNaveBar.value = val;
+    if(val==0) {
+      selectedScreen.value=NavigationScreensEnum.orders;
+    } else if(val==1){
+      selectedScreen.value=NavigationScreensEnum.products;
+    }
+    else{
+      selectedScreen.value=NavigationScreensEnum.profile;
+    }
   }
 }

@@ -3,12 +3,12 @@ import 'package:grenta_store/models/product.dart';
 
 class OrderedProduct {
    ProductDetails ?productDetails;
-   int? ordererNumber;
+   int? orderNumber;
   String selectedSize;
    Product ?product;
   int _count = 0;
   OrderedProduct({
-    this.ordererNumber,
+    this.orderNumber,
      this.productDetails,
      this.product,
     int ?  count,

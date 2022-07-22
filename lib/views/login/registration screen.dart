@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:grenta_store/controllers/login%20controrller.dart';
-import 'package:grenta_store/views/home/home%20screen.dart';
+import 'package:grenta_store/views/home/home%20screen/home%20screen.dart';
 import 'package:grenta_store/widgets/CircularIndicator.dart';
 import 'package:grenta_store/widgets/my%20button.dart';
 import 'package:grenta_store/widgets/my%20drag%20down%20button.dart';
@@ -29,17 +29,6 @@ class RegistrationScreen extends StatelessWidget {
           child: Column(
             children: [
               MyTextField(
-                  label: "الاسم ",
-                  controller: _controller.nameController,
-                  validator: (s) {
-                    if (s == null || s.isEmpty) {
-                      return "يجب ادخال الاسم";
-                    }
-                  }),
-              const SizedBox(
-                height: 20,
-              ),
-              MyTextField(
                   label: "البريد الالكتروني ",
                   controller: _controller.emailController,
                   keyboardType: TextInputType.emailAddress,
@@ -48,77 +37,12 @@ class RegistrationScreen extends StatelessWidget {
                     if (s == null || s.isEmpty) {
                       return "يجب ادخال الايميل";
                     }
-                    return null;
-                  }),
-              const SizedBox(
-                height: 20,
-              ),
-              MyTextField(
-                  label: "الهاتف 1  ",
-                  controller: _controller.phone1Controller,
-                  keyboardType: TextInputType.phone,
-                  icon: Icons.phone,
-                  validator: (s) {
-                    if (s == null || s.isEmpty) {
-                      return "يجب ادخال رقم هاتف";
-                    } else {
-                      try {
-                        int phone = int.parse(s);
-                      } catch (e) {
-                        return "يجب ادخال رقم هاتف صحيح";
-                      }
+                    else if( !RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+").hasMatch(s)){
+
+                      return "يجب ادخال ايميل صحيح";
                     }
-                    return null;
-                  }),
-              const SizedBox(
-                height: 20,
-              ),
-              MyTextField(
-                  label: "الهاتف 2 (اختياري) ",
-                  controller: _controller.phone2Controller,
-                  keyboardType: TextInputType.phone,
-                  icon: Icons.phone,
-                  validator: (s) {
-                    if (s != null && s.isNotEmpty) {
-                      try {
-                        int phone = int.parse(s);
-                      } catch (e) {
-                        return "يجب ادخال رقم هاتف صحيح";
-                      }
-                    }
-                    return null;
-                  }),
-              const SizedBox(
-                height: 20,
-              ),
-              MyTextField(
-                  label: "العنوان ",
-                  controller: _controller.addressController,
-                  icon: Icons.map,
-                  validator: (s) {
-                    if (s == null || s.isEmpty) {
-                      return "يجب ادخال العنوان";
-                    }
-                  }),
-              const SizedBox(
-                height: 20,
-              ),
-              MyDropDownButton(
-                label: "المدينة ",
-                initVal: "القاهرة",
-                valuesList: ["القاهرة", "الجيزة"],
-                onChange: (val) {},
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              MyTextField(
-                  label: "المنطقة ",
-                  controller: _controller.distractController,
-                  icon: Icons.map,
-                  validator: (s) {
-                    if (s == null || s.isEmpty) {
-                      return "يجب ادخال المنطقة";
+                    else{
+                      return null;
                     }
                   }),
               const SizedBox(
@@ -169,12 +93,7 @@ class RegistrationScreen extends StatelessWidget {
                           if (formKey.currentState!.validate()) {
                             //ToDo send online api
                             if (_controller.loginError.value == false) {
-                              if (isHome) {
-                                Get.offAll(HomeScreen());
-                              } else {
-                                Get.back();
-                                Get.back();
-                              }
+                              Get.back();
                             }
                             // Navigator.of(context).pushNamedAndRemoveUntil(
                             //     RouteGenerator.main_home,

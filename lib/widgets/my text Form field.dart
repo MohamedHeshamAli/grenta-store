@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:grenta_store/common.dart';
+import 'package:grenta_store/common/common.dart';
 
 class MyTextField extends StatelessWidget {
   final TextEditingController controller;

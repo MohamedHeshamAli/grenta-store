@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:grenta_store/common.dart';
+import 'package:grenta_store/common/common.dart';
 import 'package:grenta_store/controllers/car%20controller.dart';
 import 'package:grenta_store/models/ordered%20product.dart';
 import 'package:grenta_store/widgets/alert/alert%20with%20button.dart';

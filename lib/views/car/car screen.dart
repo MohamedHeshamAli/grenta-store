@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:grenta_store/common.dart';
+import 'package:grenta_store/common/common.dart';
 import 'package:grenta_store/controllers/car%20controller.dart';
 import 'package:grenta_store/views/login/login%20screen.dart';
 import 'package:grenta_store/widgets/car/car%20order%20card.dart';

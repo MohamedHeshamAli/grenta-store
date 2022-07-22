@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:grenta_store/common.dart';
+import 'package:grenta_store/common/common.dart';
 import 'package:grenta_store/controllers/home%20controller.dart';
 import 'package:grenta_store/models/category.dart';
 import 'package:grenta_store/widgets/network%20image%20widget.dart';

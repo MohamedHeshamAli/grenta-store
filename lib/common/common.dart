@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:grenta_store/repository/Repo.dart';
 
-import 'models/customer.dart';
+import '../models/customer.dart';
 
 RemoteRepo remoteRepo = RemoteRepo();
 Customer? currentCustomer;

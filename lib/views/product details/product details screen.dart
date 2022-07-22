@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:grenta_store/common.dart';
+import 'package:grenta_store/common/common.dart';
 import 'package:grenta_store/controllers/car%20controller.dart';
 import 'package:grenta_store/widgets/CircularIndicator.dart';
 import 'package:grenta_store/widgets/car/carbutton.dart';

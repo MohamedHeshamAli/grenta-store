@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:grenta_store/common.dart';
+import 'package:grenta_store/common/common.dart';
 import 'package:grenta_store/models/product%20details.dart';
 import 'package:grenta_store/models/product.dart';
 import 'package:grenta_store/widgets/alert/alert%20message.dart';
