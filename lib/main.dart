@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:grenta_store/common.dart';
+import 'package:grenta_store/common/common.dart';
 import 'package:grenta_store/testui.dart';
-import 'package:grenta_store/views/home/home%20screen.dart';
+import 'package:grenta_store/views/home/home%20screen/home%20screen.dart';
 
 import 'views/login/login screen.dart';
 import 'package:flutter/services.dart';

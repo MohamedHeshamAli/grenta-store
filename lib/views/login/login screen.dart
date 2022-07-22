@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:grenta_store/common.dart';
+import 'package:grenta_store/common/common.dart';
 import 'package:grenta_store/controllers/internet%20controller.dart';
 import 'package:grenta_store/controllers/login%20controrller.dart';
-import 'package:grenta_store/views/home/home%20screen.dart';
+import 'package:grenta_store/views/home/home%20screen/home%20screen.dart';
 import 'package:grenta_store/views/login/registration%20screen.dart';
 import 'package:grenta_store/widgets/CircularIndicator.dart';
 import 'package:grenta_store/widgets/alert/alert%20message.dart';
@@ -12,7 +12,8 @@ import 'package:grenta_store/widgets/my%20text%20Form%20field.dart';
 
 class LoginScreen extends StatelessWidget {
   bool isHome;
-  LoginScreen({this.isHome = true});
+  Widget? nextScreen;
+  LoginScreen({this.isHome = true,this.nextScreen});
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   final LoginController _controller = Get.put(LoginController());
@@ -65,8 +66,16 @@ class LoginScreen extends StatelessWidget {
                         keyboardType: TextInputType.emailAddress,
                         icon: Icons.email,
                         validator: (s) {
+
                           if (s == null || s.isEmpty) {
                             return "يجب ادخال الايميل";
+                          }
+                          else if( !RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+").hasMatch(s)){
+
+                            return "يجب ادخال ايميل صحيح";
+                          }
+                          else{
+                            return null;
                           }
                         }),
                     const SizedBox(
@@ -81,6 +90,9 @@ class LoginScreen extends StatelessWidget {
                         validator: (s) {
                           if (s == null || s.isEmpty) {
                             return "يجب ادخال كلمة المرور";
+                          }
+                          else if(s.length<6){
+                            return "يجب ادخال كلمة مرور صحيحة";
                           }
                         }),
                     const SizedBox(
@@ -103,13 +115,17 @@ class LoginScreen extends StatelessWidget {
                                       alertMessage(context,
                                           "الايميل او كلمه المرور خطأ برجاء المحاوله مرة اخرى");
                                     } else {
-                                      isHome
+                                      if(nextScreen!=null){
+                                    Get.off(nextScreen!);
+                                      }else {
+                                        isHome
                                           ? Get.off(HomeScreen())
                                           : Get.back();
+                                      }
                                     }
                                   } else {
                                     alertMessage(context,
-                                        "لا يوجد انتر نت برجاء المحاوله مرة اخرى");
+                                        "لا يوجد انترنت برجاء المحاوله مرة اخرى");
                                   }
                                 }
                               },
